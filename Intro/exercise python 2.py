@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
-
-# Ofir Friedman
-
-
 
 """
 
