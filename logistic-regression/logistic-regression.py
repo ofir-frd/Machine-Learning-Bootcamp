@@ -74,7 +74,7 @@ def predict_sigmoid(x):
 def calculate_sigmoid(x):
   return 1 / (1 + np.exp(-x))
 
-# creat line plot based of given color conditions
+# create line plot based of given color conditions
 def plot_scatter(x,y, color_condition,labelx,labely,legend_title):
     
     figure, axis = plt.subplots(1, 1)
