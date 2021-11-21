@@ -141,21 +141,21 @@ def main():
 
     ############
     ### test ###
-    ############   
-    
-    predictions, cost_values = fit_logistic_regression(x_test, y_test, 150, 0.008)
+    ############
 
-    success_prediction_rate = np.equal(predictions,y_test)
+    predictions = predict_sigmoid(calculate_sigmoid(x_test@theta))
+
+    success_prediction_rate = np.equal(predictions, y_test)
     count_true = np.count_nonzero(success_prediction_rate)
 
     color_condition = ['blue' if (x == 1) else 'red' for x in predictions]
-    plot_scatter(x_test['x'],x_test['y'], color_condition,
-                 'x', 'y', 'group 1')
-    
+    plot_scatter(x_test['sepal length (cm)'],x_test['sepal width (cm)'], color_condition,
+                 'sepal length (cm)', 'sepal length (cm)', 'Iris-setosa')
+
     print('logistic regression test output: correct {} times out of {}, which equals to a success rate of {}%' .format(count_true, len(y_test), round(100*count_true/len(y_test),2)))
-    
+
     plot_scatter(np.arange(len(cost_values)), cost_values, 'green',
-                 'epoch (num.)', 'loss function (arb.)', 'loss_function')    
+                 'epoch (num.)', 'loss function (arb.)', 'loss_function')   
  
     
 if __name__ == '__main__':
