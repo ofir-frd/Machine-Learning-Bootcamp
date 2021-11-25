@@ -119,7 +119,8 @@ def get_split(current_df: pd.DataFrame, labels_list: pd.DataFrame):
                                                          abs(gini_after * (1-((current_position+1)/total_samples)))
 
     row, column = gini_matrix.stack().idxmin()
-
+    ordered_feature = order_features(current_df, column, labels_list)
+    
     return int(ordered_features.iloc[row]['index']), column, gini_matrix[column].iloc[row]  # returns: row number, column name, and gini value
 
 
