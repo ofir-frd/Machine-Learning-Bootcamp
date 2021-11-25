@@ -308,8 +308,6 @@ def main():
         print('test (max_depth = {}): correct {} times out of {}, success rate of {}%'.format(max_depth,
             count_true, len(y_test), round(100 * count_true / len(y_test), 2)))
 
-        pass
-
 
 if __name__ == '__main__':
     main()
