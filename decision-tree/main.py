@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+from functools import lru_cache
 
 # train-test split by a percentage.
 # input: dataframe, label column name, split ration, and random state
@@ -195,6 +195,7 @@ def build_tree(x_train, y_train, max_depth):
 # check if we need to stop (Node.leaf is True), if leaf return it
 # else, split while checking max depth
 # if reached max depth return leaf
+@lru_cache(maxsize=None)
 def split_node(current_node: Node, depth: int):
 
     if current_node.leaf == 1:
@@ -241,6 +242,7 @@ def predict_labels(decision_tree, x_test):
 # recursively scan the branches of the tree. decide to take the left or right branch by existence of data or by
 # appropriate values (current data in range of feature). find the optimum leaf by reaching the end of the line or by
 # irrelevant branching.
+@lru_cache(maxsize=None)
 def find_value_and_get_label(node, row):
 
     if node.current_node.leaf == 1:
