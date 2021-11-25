@@ -120,7 +120,7 @@ def get_split(current_df: pd.DataFrame, labels_list: pd.DataFrame):
 
     row, column = gini_matrix.stack().idxmin()
 
-    return row, column, gini_matrix[column].iloc[row]  # returns: row number, column name, and gini value
+    return int(ordered_features.iloc[row]['index']), column, gini_matrix[column].iloc[row]  # returns: row number, column name, and gini value
 
 
 # Decision tree node
