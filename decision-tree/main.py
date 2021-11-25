@@ -29,7 +29,7 @@ def split_by_feature(user_df, feature_name, split_value):
 # input: dataframe (x) and labels list (y)
 # returns: DataFrame with new index ordered index old index and value order by size
 # the ordered value are generated in between each data point of the given dataframe
-def order_features(current_df: pandas.DataFrame, feature: str, labels_list: pandas.DataFrame):
+def order_features(current_df: pd.DataFrame, feature: str, labels_list: pd.DataFrame):
 
     # create new dataframe with orders values and new index
     current_df['label'] = labels_list
@@ -60,7 +60,7 @@ def order_features(current_df: pandas.DataFrame, feature: str, labels_list: pand
 # calculate gini index of the entire data frame and returns the position of minimum value
 # input: dataframe (x) and labels list (y)
 # returns: row number, column name and gini value
-def get_split(current_df: pandas.DataFrame, labels_list: pandas.DataFrame):
+def get_split(current_df: pd.DataFrame, labels_list: pd.DataFrame):
     # reset index values to be used as position counters
     current_df = current_df.reset_index(drop=True)
     labels_list = labels_list.reset_index(drop=True)
@@ -126,9 +126,9 @@ def get_split(current_df: pandas.DataFrame, labels_list: pandas.DataFrame):
 # Decision tree node
 class Node:
 
-    left_node: pandas.DataFrame
-    right_node: pandas.DataFrame
-    current_df: pandas.DataFrame
+    left_node: pd.DataFrame
+    right_node: pd.DataFrame
+    current_df: pd.DataFrame
     feature: int
     row: int
     depth: int
