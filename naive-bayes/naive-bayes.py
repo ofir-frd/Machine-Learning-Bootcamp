@@ -10,6 +10,7 @@ def calculate_gaussian_distribution(x_value, mean_value, std_value):
     return (1/np.sqrt(2*np.pi*std_value)) * np.exp(-(x_value-mean_value)**2/
                                                    (2*std_value))
 
+
 ## receives: a data frame
 ## return: a DataFrame that contains feature title, its mean and standard deviation
 def mean_and_std(data):
