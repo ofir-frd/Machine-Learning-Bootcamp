@@ -164,10 +164,11 @@ def main():
     heart_df = preprocessing('heart.csv')
 
     # increase database size by 4
-    multi_hearts = pd.concat([heart_df, heart_df, heart_df, heart_df], ignore_index=True)
+    #multi_hearts = pd.concat([heart_df, heart_df, heart_df, heart_df], ignore_index=True)
     
     # splitting of the data
-    x_train, x_test, y_train, y_test = split_df(multi_hearts, 'target', 0.8, 42)
+    #x_train, x_test, y_train, y_test = split_df(multi_hearts, 'target', 0.8, 42)
+    x_train, x_test, y_train, y_test = split_df(heart_df, 'target', 0.8, 42)
 
     # setting up stump forest object:
     success_rates_train = []
