@@ -215,7 +215,6 @@ def main():
     results = pd.DataFrame(data=amount_of_trees_list, columns=['amount_of_trees'])
     results['Train'] = success_rates_train
     results['Test'] = success_rates_test
-   # results = results.set_index('amount_of_trees')
     fig = px.scatter(results, x='amount_of_trees', y=['Train','Test'], size='amount_of_trees')
     fig.update_layout(xaxis_title="Amount of Trees (num.)", yaxis_title="Success Rate (%)")
     fig.show()
