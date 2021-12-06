@@ -134,7 +134,7 @@ def main():
     #%% Test
     predictions_test, mse_list_test = test_forest(random_forest, initial_average_weight, x_test, y_test, alpha)
 
-    # %% plot success_rate vs forest size
+    # %% plot success rate vs tree intervals
     fig = make_subplots(rows=1, cols=3, subplot_titles=('Train', 'Validation', 'Test'),
                         x_title='Amount of Intervals (num.)', y_title='mean square error')
 
