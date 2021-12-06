@@ -29,7 +29,7 @@ def split_df(user_df: pd.DataFrame, label_name: str, split_ratio=0.8, random_val
         x_train[label_name]), pd.DataFrame(x_test[label_name])
 
 
-# Create as arrays of stump tree in a given size
+# Create as arrays of trees in a given size and depth
 def create_random_forest(forest_size: int, max_depth: int, random_state_local: int):
 
     random_forest = []
