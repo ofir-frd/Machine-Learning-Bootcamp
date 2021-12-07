@@ -108,7 +108,7 @@ def main():
     random_forest = create_random_forest(forest_size, max_depth, random_state_local)
 
     #%% Train
-    alpha_list = [0.1, 0.3, 0.5, 0.7, 0.9] # variable calibrated by KFold train-validate
+    #alpha_list = [0.1, 0.3, 0.5, 0.7, 0.9] # variable calibrated by KFold train-validate
     alpha = 0.5  # gradiant coefficient
     
     kf = KFold(n_splits=2, shuffle=True, random_state=42)
