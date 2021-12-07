@@ -100,13 +100,17 @@ def main():
     x_train, x_test, y_train, y_test = split_df(fish_df, 'Weight', 0.8, 42)
 
     # setting up a random forest:
-    forest_size = 10
-    max_depth = 4
+    #forest_size_list = [4, 5, 6, 7, 8] # variable calibrated by KFold train-validate
+    forest_size = 20
+    # max_depth_list = [1, 2, 3, 4, 5] # variable calibrated by KFold train-validate
+    max_depth = 3
     random_state_local = 42
     random_forest = create_random_forest(forest_size, max_depth, random_state_local)
 
     #%% Train
+    alpha_list = [0.1, 0.3, 0.5, 0.7, 0.9] # variable calibrated by KFold train-validate
     alpha = 0.5  # gradiant coefficient
+    
     kf = KFold(n_splits=2, shuffle=True, random_state=42)
     for train_index, test_index in kf.split(x_train, y_train):
 
