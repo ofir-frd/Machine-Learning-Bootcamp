@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
 from sklearn.datasets import load_iris
+
 
 class Cluster:
 
@@ -183,7 +183,8 @@ def do_clustering(df: np.ndarray, idx_list: np.ndarray, distance_map: np.ndarray
             # merge point with cluster if the 2nd items is a point:
             if closest_couple_index[0][1] < idx_list[len(idx_list)]:
                 # add point to cluster
-                cluster_list[len(distance_map) - closest_couple_index[0][0]].add_point(idx_list[closest_couple_index[0][1]])
+                cluster_list[len(distance_map) - closest_couple_index[0][0]].add_point(
+                    idx_list[closest_couple_index[0][1]])
                 # delete cell
                 idx_list = np.delete(idx_list, closest_couple_index[0][1], None)
                 # delete rows
@@ -274,12 +275,7 @@ def main():
 
         plt.show()
 
-
         i += 1
-
-
-
-    pass
 
 
 if __name__ == '__main__':
