@@ -33,12 +33,12 @@ class Dbscan:
         return neighbours_counter
 
     def expand_cluster(self, cluster_seed_point_idx: int):
-        """ Expend a cluster starting for a random core point.
+        """ Expend a given cluster point.
             Will continue to search for core and neighbours until exhausted.
             The points index in the cluster will be added to a new vector of  self.core_inx_array
         and flagged as done in the self.done_inx list
          # Arguments
-            available_point_idx: index of reference point in the points array
+            cluster_seed_point_idx: index of reference point in the points array
         """
 
         if len(self.done_idx) == len(self.points):
