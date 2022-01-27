@@ -6,21 +6,27 @@ from sklearn.preprocessing import LabelEncoder
 
 class MyModel:
 
-    def __init__(self, weight: tf.Variable = 1, b_value: tf.Variable = 1, target_value: tf.Variable = 1,
+    def __init__(self, layers: list = [1], target_value: tf.Variable = 1,
                  predict_value: tf.Variable = 1, new_learning_rate: tf.Variable = 0.01):
         """
         Initiate MyModel class.
-        :param weight: initial weight for linear regression.
-        :param b_value: initial b value.
+        :param layers: amount of neurons per layer, len = amount of layers
         :param target_value: y_target value for the regression.
         :param predict_value: y_predict, initial prediction.
         :param new_learning_rate: leaning rate of the algorithm.
         """
-        self.W = weight
-        self.b = b_value
+
         self.y_target = target_value
         self.y_predict = predict_value
         self.learning_rate = new_learning_rate
+        self.W = [tf.Variable(tf.random.normal([1, layers[0]], 0, 1, dtype=tf.float32, seed=1))]
+        self.b = [tf.Variable(tf.zeros([1, layers[0]], dtype=tf.float32))]
+
+        for i in range(1, len(layers), 1):
+
+            self.W.append(tf.Variable(tf.random.normal([layers[i-1], layers[i]], 0, 1, dtype=tf.float32, seed=1)))
+            self.b.append(tf.Variable(tf.zeros([1, layers[i]], dtype=tf.float32)))
+
 
     def __call__(self, x, epochs_total):
         """
@@ -38,6 +44,21 @@ class MyModel:
         """
         return tf.reduce_mean((self.y_predict - self.y_target)**2)
 
+    def forward_epoch(self, x):
+        '''
+        Forward pass of the network
+        :param x: input data
+        :return: predicted label
+        '''
+
+        # self.y_predict = x @ self.W + self.b
+        prediction = x
+        for i in range(len(self.W)):
+            prediction = prediction @ self.W[i] + self.b[i]
+            prediction = tf.nn.relu(prediction)
+
+        return prediction
+
     def train(self, x, epochs_total: int = 5):
         """
         Linear regression algorithm function.
@@ -48,10 +69,12 @@ class MyModel:
         current_loss = []
         w_list = []
         b_list = []
+
         for i in range(epochs_total):
 
             with tf.GradientTape(persistent=True) as tape:
-                self.y_predict = x @ self.W + self.b
+
+                self.y_predict = self.forward_epoch(x)
                 current_loss.append(self.calculate_loss())
 
             [dl_dw, dl_db] = tape.gradient(current_loss[-1], [self.W, self.b])
@@ -69,17 +92,15 @@ class MyModel:
 def main():
 
     df = pd.read_csv('avocado.csv')
-    df = df.groupby('region').mean()
     key_encoder = LabelEncoder()
-    df.index = key_encoder.fit_transform(df.index)
-    x = tf.constant(df.index, dtype=tf.float32, shape=[df.__len__(), 1])
+    x = tf.constant(key_encoder.fit_transform(df['region']), dtype=tf.float32, shape=[df.__len__(), 1])
     y = tf.constant(df['AveragePrice'], dtype=tf.float32, shape=[df.__len__(), 1])
-    w = tf.Variable(tf.random.normal([1, 1], 0, 1, dtype=tf.float32, seed=1))
-    b = tf.Variable(tf.zeros(1, dtype=tf.float32))
     learning_rate = tf.Variable(0.001)
-    epochs = 50
+    epochs = 100
 
-    new_model = MyModel(w, b, y, tf.zeros(y.shape.as_list()[0], dtype=tf.float32), learning_rate)
+    neurons_per_layers = [50, 60, 1]
+
+    new_model = MyModel(neurons_per_layers, y, tf.zeros(y.shape.as_list()[0], dtype=tf.float32), learning_rate)
 
     loss_values, w_values, b_values = new_model.__call__(x, epochs)
     w_extracted_values = np.squeeze([w_tensor.numpy() for w_tensor in w_values])
