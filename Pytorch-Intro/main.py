@@ -12,7 +12,6 @@ import torch.nn.functional as F
 import torchvision
 import torchvision.transforms as transforms
 
-
 from sklearn.metrics import confusion_matrix
 
 
